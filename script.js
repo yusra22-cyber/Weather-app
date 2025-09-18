@@ -110,10 +110,11 @@ window.addEventListener("DOMContentLoaded", () => {
         getWeatherByCoords(position.coords.latitude, position.coords.longitude);
       },
       () => {
-        getweather("sargodha"); // fallback if denied
+        getweather("sargodha"); // fallback if not any
       }
     );
   } else {
     getweather("sargodha");
   }
 });
+
