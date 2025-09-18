@@ -1,49 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather app</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link href="https://fonts.googleapis.com/css2?family=Trirong:wght@400;600&display=swap" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="design.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="design.css">
 </head>
 <body>
-        <video id="weatherVideo" autoplay muted loop playsinline>
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-eagle-gliding-in-a-clear-sky-bottom-view-1706.mp4" type="video/mp4">
-        </video>
+  <!-- Background Video -->
+  <video id="weatherVideo" autoplay muted loop playsinline>
+    <source src="" type="video/mp4">
+  </video>
 
+  <!-- Main Container -->
+  <div class="app">
+    <h1>🌤 Weather App</h1>
 
+    <div class="search">
+      <input type="text" id="cityinput" placeholder="Enter city name...">
+      <button>Get Weather</button>
+    </div>
 
+    <!-- Weather Info -->
+    <div class="weather-display">
+      <p class="city"></p>
+      <p class="sky"></p>
+      <p class="humidity"></p>
+      <p class="wind"></p>
+      <p class="sun"></p>
+    </div>
+  </div>
 
-          <div class="weather-bg"></div>
-            <div class="bar">
-            <img class="logo" src="logo.png"/>
-             <h1>WEATHER APP</h1>
-            </div>    <br><br>
-            <div class="search">
-                <input name="city" type="text" id="cityinput" placeholder=" Enter city name"><br>
-                <button>SEARCH</button>
-
-            </div>
-              
-            <div class="weather-display">
-                <p class="city"></p>
-                <p class="sky"></p>
-                <p class="humidity"> </p>
-                <p class="wind"></p>
-                <p class="sun"></p>
-            </div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
