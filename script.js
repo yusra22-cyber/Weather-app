@@ -3,26 +3,36 @@ const weatherVideo = document.getElementById("weatherVideo");
 
 // Main function (city name)
 async function getweather(defaultCity) {
-  const apikey = "af8178865fa1b2b02f8b6de66d14a81d";
-  let city = defaultCity || document.getElementById("cityinput").value.toLowerCase().trim();
+  try {
+    const apikey = "af8178865fa1b2b02f8b6de66d14a81d";
+    let city = defaultCity || document.getElementById("cityinput").value.toLowerCase().trim();
 
-  if (!city) return; // avoid empty input
+    if (!city) return;
 
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city},PK&appid=${apikey}&units=metric`;
-  let response = await fetch(url);
-  let data = await response.json();
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city},PK&appid=${apikey}&units=metric`;
+    let response = await fetch(url);
+    let data = await response.json();
 
-  updateWeatherDisplay(data);
+    updateWeatherDisplay(data);
+  } catch (error) {
+    document.querySelector(".weather-display").innerHTML = `<p>⚠️ Error fetching weather data</p>`;
+    console.error(error);
+  }
 }
 
 // Function (coords)
 async function getWeatherByCoords(lat, lon) {
-  const apikey = "af8178865fa1b2b02f8b6de66d14a81d";
-  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric`;
-  let response = await fetch(url);
-  let data = await response.json();
+  try {
+    const apikey = "af8178865fa1b2b02f8b6de66d14a81d";
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric`;
+    let response = await fetch(url);
+    let data = await response.json();
 
-  updateWeatherDisplay(data);
+    updateWeatherDisplay(data);
+  } catch (error) {
+    document.querySelector(".weather-display").innerHTML = `<p>⚠️ Error fetching weather data</p>`;
+    console.error(error);
+  }
 }
 
 // Update DOM + video
@@ -34,11 +44,13 @@ function updateWeatherDisplay(data) {
     weatherVideo.src = "";
   } else {
     let cityName = data.name;
-    let temp = data.main.temp;
-    let feelsLike = data.main.feels_like;
-    let humidity = data.main.humidity;
-    let condition = data.weather[0].main.toLowerCase();
-    let wind = data.wind.speed;
+    let temp = data.main?.temp ?? "-";
+    let feelsLike = data.main?.feels_like ?? "-";
+    let humidity = data.main?.humidity ?? "-";
+    let condition = (data.weather && data.weather[0])
+      ? data.weather[0].main.toLowerCase()
+      : "clear";
+    let wind = data.wind?.speed ?? "-";
 
     const now = new Date();
     const currentTimestamp = Date.now() / 1000;
@@ -64,31 +76,31 @@ function updateWeatherDisplay(data) {
     // 🎥 Dynamic video background
     let videoSrc = "";
 
-if (condition === "clear") {
-  if (hour >= 6 && hour < 18) {
-    videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-sky-transitioning-from-night-to-sunrise-100831.mp4"; // Day
-  } else {
-    videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-dark-starry-night-100823.mp4"; // Night
-  }
-} else {
-  switch (condition) {
-    case "clouds":
-      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-white-clouds-moving-across-a-clear-blue-sky-quickly-51105.mp4";
-      break;
-    case "rain":
-      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-water-drops-creating-ripples-106.mp4";
-      break;
-    case "thunderstorm":
-      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-thunders-and-lightning-at-night-47558.mp4";
-      break;
-    case "smoke":
-    case "fog":
-      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-blue-smoke-rising-in-front-of-a-black-background-45600.mp4";
-      break;
-    default:
-      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-eagle-gliding-in-a-clear-sky-bottom-view-1706.mp4";
-  }
-}
+    if (condition === "clear") {
+      if (hour >= 6 && hour < 18) {
+        videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-sky-transitioning-from-night-to-sunrise-100831.mp4";
+      } else {
+        videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-dark-starry-night-100823.mp4";
+      }
+    } else {
+      switch (condition) {
+        case "clouds":
+          videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-white-clouds-moving-across-a-clear-blue-sky-quickly-51105.mp4";
+          break;
+        case "rain":
+          videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-water-drops-creating-ripples-106.mp4";
+          break;
+        case "thunderstorm":
+          videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-thunders-and-lightning-at-night-47558.mp4";
+          break;
+        case "smoke":
+        case "fog":
+          videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-blue-smoke-rising-in-front-of-a-black-background-45600.mp4";
+          break;
+        default:
+          videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-eagle-gliding-in-a-clear-sky-bottom-view-1706.mp4";
+      }
+    }
 
     // Apply video
     weatherVideo.src = videoSrc;
@@ -110,7 +122,7 @@ window.addEventListener("DOMContentLoaded", () => {
         getWeatherByCoords(position.coords.latitude, position.coords.longitude);
       },
       () => {
-        getweather("sargodha"); // fallback if not any
+        getweather("sargodha");
       }
     );
   } else {
@@ -118,3 +130,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// 🎥 Force video play after first click
+document.addEventListener("click", () => {
+  weatherVideo.play().catch(() => {
+    console.log("⚠️ Still blocked, user must press play manually.");
+  });
+}, { once: true });
