@@ -63,33 +63,34 @@ function updateWeatherDisplay(data) {
     document.querySelector(".sun").innerHTML = sunInfo;
 
     // 🎥 Dynamic video background
-    let videoSrc = "";
+let videoSrc = "";
 
-    if (condition === "clear") {
-      if (hour >= 6 && hour < 18) {
-        videoSrc = "https://mixkit.co/free-stock-video/sky-transitioning-from-night-to-sunrise-100831/"; // Day
-      } else {
-        videoSrc = "https://mixkit.co/free-stock-video/dark-starry-night-100823/"; // Night
-      }
-    } else {
-      switch (condition) {
-        case "clouds":
-          videoSrc = "https://mixkit.co/free-stock-video/white-clouds-moving-across-a-clear-blue-sky-quickly-51105/";
-          break;
-        case "rain":
-          videoSrc = "https://mixkit.co/free-stock-video/water-drops-creating-ripples-106/";
-          break;
-        case "thunderstorm":
-          videoSrc = "https://mixkit.co/free-stock-video/thunders-and-lightning-at-night-47558/";
-          break;
-        case "smoke":
-        case "fog":
-          videoSrc ="https://mixkit.co/free-stock-video/blue-smoke-rising-in-front-of-a-black-background-45600/";
-          break;
-        default:
-          videoSrc = "https://mixkit.co/free-stock-video/eagle-gliding-in-a-clear-sky-bottom-view-1706/";
-      }
-    }
+if (condition === "clear") {
+  if (hour >= 6 && hour < 18) {
+    videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-sky-transitioning-from-night-to-sunrise-100831.mp4"; // Day
+  } else {
+    videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-dark-starry-night-100823.mp4"; // Night
+  }
+} else {
+  switch (condition) {
+    case "clouds":
+      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-white-clouds-moving-across-a-clear-blue-sky-quickly-51105.mp4";
+      break;
+    case "rain":
+      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-water-drops-creating-ripples-106.mp4";
+      break;
+    case "thunderstorm":
+      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-thunders-and-lightning-at-night-47558.mp4";
+      break;
+    case "smoke":
+    case "fog":
+      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-blue-smoke-rising-in-front-of-a-black-background-45600.mp4";
+      break;
+    default:
+      videoSrc = "https://assets.mixkit.co/videos/preview/mixkit-eagle-gliding-in-a-clear-sky-bottom-view-1706.mp4";
+  }
+}
+
 
     // Apply video
     weatherVideo.src = videoSrc;
@@ -118,4 +119,5 @@ window.addEventListener("DOMContentLoaded", () => {
     getweather("sargodha");
   }
 });
+
 
