@@ -40,12 +40,12 @@ button{
 }
 
 .weather-display {
-  background: rgba(255, 255, 255, 0.2); /* semi-transparent */
-  backdrop-filter: blur(8px);           /* blur effect */
-  -webkit-backdrop-filter: blur(8px);   /* Safari support */
-  border-radius: 15px;                  /* smooth corners */
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(8px);         
+  -webkit-backdrop-filter: blur(8px);   
+  border-radius: 15px;                  
   padding: 20px;
-  color: white;                         /* text color visible on video */
+  color: white;                         
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   max-width: 450px;
   margin: 20px auto;
@@ -66,6 +66,7 @@ button{
   object-fit: cover;
   z-index: -1;
 }
+
 
 
 
